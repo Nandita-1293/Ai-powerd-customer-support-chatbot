@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot - AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --text-color: #1f2937;
+        }
+
+        body {
+            background-color: #f3f4f6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .auth-links {
+        margin-left: auto;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .login-btn {
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        background: #059669;
+    }
+
+    .register-btn {
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        background: #2563eb;
+    }
+
+    @media (max-width: 768px) {
+        .auth-links {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        
+
+        .loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #2563eb;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.hero-image img.loaded {
+    opacity: 1;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Customer Support AI-Powered ChatBot</div>
+            <div class="nav-links">
+                <a href="homepage.html">Home</a>
+                <a href="#features">Features</a>
+                <a href="aboutus.html">About us</a>
+                <div class="auth-links">
+                    <a href="login.html" class="login-btn">Login</a>
+                    <a href="register.html" class="register-btn">Register</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>AI-Powered Chat Assistant</h1>
+                <p>Experience next-generation conversation with our intelligent chatbot powered by artificial intelligence. Get instant responses, personalized recommendations, and 24/7 support.</p>
+                <button class="cta-button" onclick="window.location.href = 'chat.html';">Start Chatting</button>
+            </div>
+            <div class="hero-image">
+                <img id="local-ai-image" alt="AI Chatbot">
+                <div id="loading" class="loading-spinner"></div>
+            </div>
+
+            <script>
+                // Array of local AI-related images
+const aiImages = [
+    'images/ai-1.jpg',
+    'images/ai-2.jpg',
+    'images/ai-3.jpg',
+    'images/ai-4.jpg',
+    'images/ai-5.jpg',
+    'images/ai-6.jpg'
+];
+
+// Get elements
+const imageElement = document.getElementById('local-ai-image');
+const loadingElement = document.getElementById('loading');
+
+function loadRandomAIImage() {
+    // Show loading spinner
+    loadingElement.style.display = 'block';
+    imageElement.classList.remove('loaded');
+
+    // Randomly select image
+    const randomIndex = Math.floor(Math.random() * aiImages.length);
+    const selectedImage = aiImages[randomIndex];
+    
+    // Create new image object
+    const img = new Image();
+    img.src = selectedImage;
+    
+    img.onload = () => {
+        // Hide loading spinner
+        loadingElement.style.display = 'none';
+        
+        // Set image source and fade in
+        imageElement.src = selectedImage;
+        imageElement.classList.add('loaded');
+    };
+
+    img.onerror = () => {
+        console.error('Failed to load image:', selectedImage);
+        loadingElement.style.display = 'none';
+        // Try next image in sequence
+        const nextIndex = (randomIndex + 1) % aiImages.length;
+        imageElement.src = aiImages[nextIndex];
+    };
+}
+
+// Load initial image
+loadRandomAIImage();
+
+// Optional: Change image every 5 seconds
+// setInterval(loadRandomAIImage, 5000);
+            </script>
+        </section>
+
+        <section class="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Natural Language Processing</h3>
+                    <p>Understands and responds to human language naturally</p>
+                </div>
+                <div class="feature-card">
+                    <h3>24/7 Availability</h3>
+                    <p>Always ready to help you anytime, anywhere</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Smart Learning</h3>
+                    <p>Continuously improves through machine learning</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multi-platform</h3>
+                    <p>Accessible on web and mobile devices</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ChatBot. All rights reserved.</p>
+    </footer>
+</body>
+</html>
